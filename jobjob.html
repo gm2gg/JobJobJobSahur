@@ -1,240 +1,305 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Максимально сложный крутой сайт</title>
-<style>
-  /* Сброс стилей */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-    color: #fff;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-  header {
-    position: fixed;
-    width: 100%;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(12px);
-    padding: 20px 40px;
-    text-align: center;
-    font-size: 2rem;
-    font-weight: bold;
-    letter-spacing: 3px;
-    z-index: 999;
-    animation: headerFadeIn 2s ease forwards;
-  }
-  @keyframes headerFadeIn {
-    from {opacity: 0; transform: translateY(-20px);}
-    to {opacity: 1; transform: translateY(0);}
-  }
-  main {
-    padding: 140px 30px 60px;
-    max-width: 1200px;
-    margin: auto;
-    backdrop-filter: brightness(0.9);
-  }
-  section {
-    margin-bottom: 80px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 0 30px rgba(0,0,0,0.4);
-    animation: fadeSlideUp 1.2s ease forwards;
-  }
-  @keyframes fadeSlideUp {
-    from {opacity: 0; transform: translateY(60px);}
-    to {opacity: 1; transform: translateY(0);}
-  }
-  h2 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    text-shadow: 1px 1px 10px #ffcf3f;
-  }
-  p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-  }
-  .btn {
-    display: inline-block;
-    padding: 14px 30px;
-    margin-top: 25px;
-    font-size: 1.2rem;
-    border-radius: 40px;
-    background: linear-gradient(90deg, #ff6a00, #ee0979);
-    box-shadow: 0 4px 15px rgba(255,106,0,0.6);
-    color: #fff;
-    cursor: pointer;
-    text-decoration: none;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    user-select: none;
-  }
-  .btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 25px rgba(238,9,121,0.9);
-  }
-  /* Интерактивная 3D-карта */
-  #interactive-map {
-    margin-top: 40px;
-    width: 100%;
-    aspect-ratio: 16/9;
-    perspective: 1500px;
-  }
-  #map-container {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #0d1b2a, #1b263b, #415a77);
-    border-radius: 20px;
-    box-shadow: 0 0 30px #ff6a00;
-    transform-style: preserve-3d;
-    transition: transform 0.4s ease;
-    position: relative;
-    overflow: hidden;
-  }
-  #map-glow {
-    position: absolute;
-    top: -60%;
-    left: -60%;
-    width: 220%;
-    height: 220%;
-    background: radial-gradient(circle at center, #ff6a00aa 10%, transparent 60%);
-    filter: blur(40px);
-    animation: glowPulse 5s infinite ease-in-out alternate;
-    pointer-events: none;
-  }
-  @keyframes glowPulse {
-    0%, 100% {
-      transform: scale(1);
-      opacity: 0.8;
-    }
-    50% {
-      transform: scale(1.3);
-      opacity: 0.5;
-    }
-  }
-  /* Карта и объекты */
-  .map-point {
-    position: absolute;
-    background: #ee0979;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    box-shadow: 0 0 10px #ff6a00, inset 0 0 5px #ff6a00;
-    cursor: pointer;
-    transition: background 0.3s ease, box-shadow 0.3s ease;
-  }
-  .map-point:hover {
-    background: #ff6a00;
-    box-shadow: 0 0 18px #ff6a00, inset 0 0 10px #ff6a00;
-  }
-  .tooltip {
-    position: absolute;
-    background: rgba(0,0,0,0.9);
-    color: #ff6a00;
-    padding: 8px 14px;
-    border-radius: 12px;
-    font-size: 0.9rem;
-    font-weight: bold;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    user-select: none;
-  }
-  /* Плавное появление элементов */
-  .fade-in {
-    opacity: 0;
-    animation: fadeInEase 1s forwards;
-  }
-  @keyframes fadeInEase {
-    to {opacity: 1;}
-  }
-  /* Адаптивность */
-  @media (max-width: 768px) {
-    main {
-      padding: 100px 20px 40px;
-    }
-    h2 {
-      font-size: 2rem;
-    }
-    .btn {
-      font-size: 1rem;
-      padding: 12px 24px;
-    }
-  }
-</style>
+    <meta charset="UTF-8">
+    <title>Круговой Таймер-Будильник 24h</title>
+    <style>
+        /* === ОБЩИЕ СТИЛИ === */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #1a1a1a;
+            color: #fff;
+            margin: 0;
+            flex-direction: column;
+        }
+        .container {
+            background: #2c2c2c;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+        }
+        h1 {
+            color: #76c7c0;
+            margin-bottom: 25px;
+        }
+
+        /* === СТИЛИ КОЛЕСА ВЫБОРА ВРЕМЕНИ === */
+        .time-picker {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        .time-picker-column {
+            /* Высота, имитирующая "окно" выбора */
+            height: 180px;
+            width: 80px;
+            overflow-y: scroll;
+            border-radius: 8px;
+            position: relative;
+            /* Включение привязки прокрутки для эффекта "защелкивания" */
+            scroll-snap-type: y mandatory;
+            background-color: #3a3a3a;
+            scrollbar-width: none; /* Скрытие скроллбара для Firefox */
+            -ms-overflow-style: none; /* Скрытие скроллбара для IE/Edge */
+        }
+        /* Скрытие скроллбара для Chrome, Safari, Opera */
+        .time-picker-column::-webkit-scrollbar {
+            display: none;
+        }
+
+        .time-picker-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px; /* Высота одного элемента (окно = 3 элемента) */
+            font-size: 32px;
+            font-weight: 500;
+            color: #888;
+            /* Привязка прокрутки к центру элемента */
+            scroll-snap-align: center;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        /* Дополнительные пустые элементы для центрирования выбора */
+        .time-picker-column::before,
+        .time-picker-column::after {
+            content: "";
+            display: block;
+            height: 60px; /* Половина высоты окна минус высота элемента */
+        }
+
+        /* Разделитель ":" */
+        .separator {
+            font-size: 32px;
+            color: #76c7c0;
+            margin: 0 5px;
+            line-height: 60px;
+            height: 60px;
+        }
+
+        /* === СТИЛИ КНОПОК И СООБЩЕНИЙ === */
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            margin: 5px;
+            font-weight: bold;
+        }
+        #setButton {
+            background-color: #76c7c0;
+            color: #1a1a1a;
+        }
+        #setButton:hover {
+            background-color: #5fb1ab;
+        }
+        #stopButton {
+            background-color: #dc3545;
+            color: white;
+            display: none;
+        }
+        #stopButton:hover {
+            background-color: #c82333;
+        }
+        #message {
+            margin-top: 25px;
+            font-size: 18px;
+            min-height: 25px;
+            color: #a0ff80;
+        }
+        .alarm-sound {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-<header>Максимально Крутой Сайт</header>
-<main>
-  <section>
-    <h2>Введение</h2>
-    <p>Добро пожаловать на самый сложный и красивый одностраничный HTML-сайт, демонстрирующий современные веб-технологии: анимации, интерактивные элементы и адаптивный дизайн.</p>
-    <a href="#interactive-map" class="btn">Перейти к интерактивной карте</a>
-  </section>
-  <section>
-    <h2>Особенности</h2>
-    <p>Этот сайт включает:</p>
-    <ul>
-      <li>Фиксированный заголовок с плавной анимацией появления</li>
-      <li>Современные CSS-анимации и эффекты</li>
-      <li>Интерактивную 3D-карту с подсветкой и всплывающими подсказками</li>
-      <li>Адаптивный дизайн для всех устройств</li>
-    </ul>
-  </section>
-  <section id="interactive-map">
-    <h2>Интерактивная 3D карта</h2>
-    <div id="map-container">
-      <div id="map-glow"></div>
-      <div class="map-point" style="top:30%; left:40%;" data-tooltip="Точка A"></div>
-      <div class="map-point" style="top:55%; left:70%;" data-tooltip="Точка B"></div>
-      <div class="map-point" style="top:75%; left:25%;" data-tooltip="Точка C"></div>
-      <div class="map-point" style="top:45%; left:50%;" data-tooltip="Центр"></div>
-      <div class="tooltip" id="tooltip"></div>
+
+    <div class="container">
+        <h1>⏰ Установите Будильник (24ч)</h1>
+
+        <div class="time-picker">
+            <div id="hoursColumn" class="time-picker-column">
+                </div>
+            <div class="separator">:</div>
+            <div id="minutesColumn" class="time-picker-column">
+                </div>
+        </div>
+
+        <button id="setButton" onclick="setAlarm()">Установить Таймер</button>
+        <button id="stopButton" onclick="stopAlarm()">Остановить</button>
+
+        <div id="message"></div>
+
+        <audio id="alarmSound" class="alarm-sound" loop>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        </audio>
     </div>
-  </section>
-</main>
-<script>
-  const mapContainer = document.getElementById('map-container');
-  const tooltip = document.getElementById('tooltip');
-  const points = mapContainer.querySelectorAll('.map-point');
 
-  // Интерактивное вращение карты по движению мыши
-  mapContainer.addEventListener('mousemove', e => {
-    const rect = mapContainer.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width/2;
-    const y = e.clientY - rect.top - rect.height/2;
-    const rotX = (y / rect.height) * 15;
-    const rotY = (x / rect.width) * 15;
-    mapContainer.style.transform = `rotateX(${-rotX}deg) rotateY(${rotY}deg)`;
-  });
-  mapContainer.addEventListener('mouseleave', () => {
-    mapContainer.style.transform = 'rotateX(0) rotateY(0)';
-    tooltip.style.opacity = 0;
-  });
+    <script>
+        const HOURS_COLUMN = document.getElementById('hoursColumn');
+        const MINUTES_COLUMN = document.getElementById('minutesColumn');
+        const ALARM_SOUND = document.getElementById('alarmSound');
+        const MESSAGE_DISPLAY = document.getElementById('message');
+        const SET_BUTTON = document.getElementById('setButton');
+        const STOP_BUTTON = document.getElementById('stopButton');
+        const ITEM_HEIGHT = 60; // Должно соответствовать .time-picker-item height в CSS
 
-  // Появление tooltip при наведении на точку
-  points.forEach(point => {
-    point.addEventListener('mouseenter', () => {
-      tooltip.textContent = point.dataset.tooltip;
-      tooltip.style.opacity = 1;
-    });
-    point.addEventListener('mousemove', e => {
-      const rect = mapContainer.getBoundingClientRect();
-      tooltip.style.left = `${e.clientX - rect.left + 15}px`;
-      tooltip.style.top = `${e.clientY - rect.top + 15}px`;
-    });
-    point.addEventListener('mouseleave', () => {
-      tooltip.style.opacity = 0;
-      tooltip.textContent = '';
-    });
-  });
-</script>
+        let alarmInterval;
+
+        // Функция для форматирования числа (добавление ведущего нуля)
+        const formatTime = (value) => value.toString().padStart(2, '0');
+
+        // === 1. ЗАПОЛНЕНИЕ КОЛОНОК (КОЛЕС) ===
+        function populateColumns() {
+            // Часы (00 до 23)
+            for (let i = 0; i < 24; i++) {
+                const div = document.createElement('div');
+                div.className = 'time-picker-item';
+                div.textContent = formatTime(i);
+                HOURS_COLUMN.appendChild(div);
+            }
+
+            // Минуты (00 до 59)
+            for (let i = 0; i < 60; i++) {
+                const div = document.createElement('div');
+                div.className = 'time-picker-item';
+                div.textContent = formatTime(i);
+                MINUTES_COLUMN.appendChild(div);
+            }
+
+            // Установка текущего времени по умолчанию (с прокруткой)
+            const now = new Date();
+            scrollToItem(HOURS_COLUMN, now.getHours());
+            scrollToItem(MINUTES_COLUMN, now.getMinutes());
+
+            // Добавление слушателей прокрутки для "захвата" выбранного значения
+            HOURS_COLUMN.addEventListener('scroll', handleScrollEnd);
+            MINUTES_COLUMN.addEventListener('scroll', handleScrollEnd);
+        }
+
+        // Прокрутка к элементу по индексу
+        function scrollToItem(column, index) {
+            column.scrollTop = index * ITEM_HEIGHT;
+        }
+
+        // Функция для задержки обработки прокрутки, чтобы дождаться остановки
+        let scrollTimeout;
+        function handleScrollEnd(event) {
+            const column = event.target;
+            clearTimeout(scrollTimeout);
+
+            // Устанавливаем таймаут, чтобы подождать, пока прокрутка полностью остановится (из-за scroll-snap)
+            scrollTimeout = setTimeout(() => {
+                // Вычисляем индекс выбранного элемента в центре "окна"
+                const selectedIndex = Math.round(column.scrollTop / ITEM_HEIGHT);
+
+                // Прокручиваем к ближайшему "защелкнутому" элементу, чтобы убедиться в его центрировании
+                column.scrollTop = selectedIndex * ITEM_HEIGHT;
+
+                // Опционально: можно добавить подсветку для активного элемента
+                // const items = column.querySelectorAll('.time-picker-item');
+                // items.forEach((item, index) => {
+                //     item.style.color = index === selectedIndex ? '#fff' : '#888';
+                // });
+            }, 100); // Небольшая задержка
+        }
+
+        // === 2. ЛОГИКА ТАЙМЕРА ===
+
+        // Получение выбранного часа/минуты из центральной позиции колеса
+        function getSelectedTime(column) {
+            const selectedIndex = Math.round(column.scrollTop / ITEM_HEIGHT);
+            // Возвращаем числовое значение (0-23 или 0-59)
+            return selectedIndex;
+        }
+
+        function setAlarm() {
+            // Получаем выбранные значения
+            const selectedHour = getSelectedTime(HOURS_COLUMN);
+            const selectedMinute = getSelectedTime(MINUTES_COLUMN);
+            const alarmTimeString = `${formatTime(selectedHour)}:${formatTime(selectedMinute)}`;
+
+            // Создаем целевую дату
+            const now = new Date();
+            let alarmTarget = new Date(now.getFullYear(), now.getMonth(), now.getDate(), selectedHour, selectedMinute, 0);
+
+            // Если время уже прошло сегодня, устанавливаем на завтра
+            if (alarmTarget.getTime() <= now.getTime()) {
+                alarmTarget.setDate(alarmTarget.getDate() + 1);
+            }
+
+            // Обновление интерфейса и запуск интервала
+            stopAlarm(false); // Сбросить предыдущий таймер без сброса интерфейса
+            HOURS_COLUMN.style.pointerEvents = 'none'; // Блокировка выбора
+            MINUTES_COLUMN.style.pointerEvents = 'none';
+            SET_BUTTON.disabled = true;
+            STOP_BUTTON.style.display = 'inline-block';
+
+            // Запускаем проверку каждую секунду
+            alarmInterval = setInterval(() => {
+                const currentTime = new Date().getTime();
+
+                if (currentTime >= alarmTarget.getTime()) {
+                    triggerAlarm(alarmTimeString);
+                } else {
+                    const remaining = alarmTarget.getTime() - currentTime;
+                    const h = Math.floor(remaining / (1000 * 60 * 60));
+                    const m = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+                    const s = Math.floor((remaining % (1000 * 60)) / 1000);
+
+                    MESSAGE_DISPLAY.textContent = `До звонка в ${alarmTimeString} осталось: ${h}ч ${m}мин ${s}сек`;
+                }
+            }, 1000);
+            sendToServer(alarmTimeString);
+        }
+
+        function triggerAlarm(time) {
+            clearInterval(alarmInterval);
+            ALARM_SOUND.play();
+            MESSAGE_DISPLAY.textContent = `🚨 БУДИЛЬНИК! Время ${time}!`;
+        }
+
+        function sendToServer(timeString) {
+            fetch("http://localhost:5000/set_alarm", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ time: timeString })
+            })
+            .then(res => res.json())
+            .then(data => console.log(data))
+            .catch(err => console.error("Ошибка связи с сервером:", err));
+        }
+
+        function stopAlarm(reset = true) {
+            if (alarmInterval) {
+                clearInterval(alarmInterval);
+            }
+            ALARM_SOUND.pause();
+            ALARM_SOUND.currentTime = 0;
+
+            if (reset) {
+                MESSAGE_DISPLAY.textContent = 'Таймер остановлен. Установите новое время.';
+                HOURS_COLUMN.style.pointerEvents = 'auto'; // Разблокировка выбора
+                MINUTES_COLUMN.style.pointerEvents = 'auto';
+                SET_BUTTON.disabled = false;
+                STOP_BUTTON.style.display = 'none';
+            }
+        }
+
+        // Инициализация при загрузке страницы
+        window.onload = populateColumns;
+    </script>
+
 </body>
 </html>
