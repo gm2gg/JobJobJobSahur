@@ -268,6 +268,16 @@
             clearInterval(alarmInterval);
             ALARM_SOUND.play();
             MESSAGE_DISPLAY.textContent = `🚨 БУДИЛЬНИК! Время ${time}!`;
+
+            // Отправляем на сервер, чтобы Python-бот сработал
+            fetch("http://127.0.0.1:5000/send_message", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({text: `⏰ Будильник! Время ${time}`})
+            })
+            .then(res => res.json())
+            .then(data => console.log("Ответ сервера:", data))
+            .catch(err => console.error("Ошибка при отправке на сервер:", err));
         }
 
         function sendToServer(timeString) {
